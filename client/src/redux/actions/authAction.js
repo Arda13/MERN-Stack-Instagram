@@ -6,7 +6,13 @@ export const TYPES = {
 
 export const login = (data) => async (dispatch) =>{
     try {
-        dispatch({type:'NOTIFY', payload: {loading:true}})
+        dispatch({
+            type:'NOTIFY',
+            payload: {
+                loading:true
+            }
+        })
+        
         const res = await postDataAPI('login', data)
 
         dispatch({

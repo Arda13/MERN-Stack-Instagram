@@ -41,7 +41,7 @@ const Login = () => {
                     </div>
        
                 </div>
-                <button type="submit" className="btn btn-dark w-100" disabled={email && password ? false : true}>Login</button>
+                <button type="submit" className="btn btn-dark w-100 mt-4" disabled={email && password ? false : true}>Login</button>
 
                 <p className="my-2"> You don't have an account? <Link to="/register">Register Now</Link></p>
             </form>
