@@ -1,13 +1,12 @@
+import { GLOBALTYPES } from './globalTypes'
 import { postDataAPI } from '../../utils/fetchData'
 
-export const TYPES = {
-    AUTH: 'AUTH'
-}
+
 
 export const login = (data) => async (dispatch) =>{
     try {
         dispatch({
-            type:'NOTIFY',
+            type: GLOBALTYPES.ALERT,
             payload: {
                 loading:true
             }
@@ -16,7 +15,7 @@ export const login = (data) => async (dispatch) =>{
         const res = await postDataAPI('login', data)
 
         dispatch({
-            type:'AUTH', 
+            type: GLOBALTYPES.AUTH, 
             payload: {
                 token: res.data.access_token,
                 user: res.data.user
@@ -27,7 +26,7 @@ export const login = (data) => async (dispatch) =>{
         localStorage.setItem('firstLogin', true)
 
         dispatch({
-            type:'NOTIFY', 
+            type: GLOBALTYPES.ALERT, 
             payload: {
                 success: res.data.msg
             }
@@ -36,7 +35,7 @@ export const login = (data) => async (dispatch) =>{
         
     } catch (err) {
         dispatch({
-            type:'NOTIFY', 
+            type: GLOBALTYPES.ALERT, 
             payload: {
                 error: err.response.data.msg
             }
@@ -45,3 +44,42 @@ export const login = (data) => async (dispatch) =>{
     }
 }
 
+export const refreshToken = (data) => async (dispatch) => {
+    const firstLogin = localStorage.getItem("firstLogin")
+    if(firstLogin) {
+        // FILL NOTIFY BEFORE TRY CATCH 
+        dispatch({
+            type: GLOBALTYPES.ALERT, 
+            payload: {
+                loading:true
+            }
+        })
+
+        try {
+
+            // FILL AUTH FROM API REQUEST AND CLEAN NOTIFY AFTER AUTH DISPATCH IN TRY BLOCK
+            const res = await postDataAPI('refresh_token')
+
+            dispatch({
+                type: GLOBALTYPES.AUTH,
+                payload: { 
+                    token: res.data.access_token,
+                    user: res.data.user
+                }
+
+            })
+
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: {}
+            })
+
+        } catch (err) {
+
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload:{ error: err.response.data.msg }
+                })
+        }
+    }
+}
