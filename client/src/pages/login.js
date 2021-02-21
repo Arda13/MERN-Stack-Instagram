@@ -27,11 +27,11 @@ const Login = () => {
         <div className="auth_page">
             <form onSubmit={handleSubmit}>
                 <h3 className="text-uppercase text-center mb-2"> Mernstagram</h3>
-                <div className="form-group">
+                <div className="form-group m-2">
                     <label htmlFor="exampleInputEmail1">Email address</label>
                     <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" onChange={handleChangeInput} name="email" value={email}/>
                 </div>
-                <div className="form-group">
+                <div className="form-group m-2">
                     <label htmlFor="exampleInputPassword1">Password</label>
                     <div className="pass">
                         <input type={ typePass ? "text" : "password" } className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={handleChangeInput} name="password" value={password}/>
