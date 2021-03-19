@@ -1,4 +1,5 @@
-﻿# MERNstagram
+﻿## I'm not going to continue this project.
+ # MERNstagram
 ```bash
 |-- README.md
 |-- client
